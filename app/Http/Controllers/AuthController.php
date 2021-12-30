@@ -13,9 +13,7 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 
 class AuthController extends Controller
 {
-    // public function __construct() {
-    //     $this->middleware('auth:api', ['except' => ['login', 'register']]);
-    // }
+    
 
     /**
      * Get a JWT via given credentials.
@@ -53,10 +51,6 @@ class AuthController extends Controller
         $user->password = \bcrypt($request->password);
 
         $user->save();
-        // $user = User::create(array_merge(
-        //             $validator->validated(),
-        //             ['password' => bcrypt($request->password)]
-        //         ));
 
         return response()->json([
             'message' => 'User successfully registered',

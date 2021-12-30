@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DepartmentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,3 +31,11 @@ Route::group([
 
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth.jwt');
 Route::get('/user', [AuthController::class, 'userProfile'])->middleware('auth.jwt');
+
+Route::prefix('department')->group(function ($router) {
+    Route::get("/", [DepartmentController::class, 'allDepartments']);
+    Route::get("/{department}", [DepartmentController::class, 'getDepartment']);
+    Route::patch("/{department}", [DepartmentController::class, 'updateDepartment']);
+    Route::delete("/{department}", [DepartmentController::class, 'deleteDepartment']);
+    Route::post("/add", [DepartmentController::class, 'createDepartment']);
+});
