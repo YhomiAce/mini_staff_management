@@ -44,6 +44,7 @@ Route::prefix('department')->group(function ($router) {
 Route::resource("staff", StaffController::class);
 
 Route::post("/add/staff/department", [DepartmentController::class, 'addStaffToDepartment']);
+Route::patch("/remove/staff/department", [DepartmentController::class, 'removeStaffFromDepartment']);
 
 Route::patch("/make-hod", [DepartmentController::class, 'makeHeadOfDepartment']);
 Route::patch("/unmake-hod", [DepartmentController::class, 'unMakeHeadOfDepartment']);

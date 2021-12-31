@@ -107,6 +107,41 @@ class DepartmentController extends Controller
 
     }
 
+    public function removeStaffFromDepartment(Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'staff_id' => 'required',
+                'department_id' => 'required'
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json($validator->errors(), 422);
+            }
+
+            $staffId = $request->staff_id;
+            $deptId = $request->department_id;
+
+            $staff = Staff::findOrFail($staffId);
+            $dept = Department::findOrFail($deptId);
+
+            $staff->department()->detach($deptId);
+            $staffDept = $staff->department;
+            return \response()->json([
+                "status" => "success",
+                "status_code"=> 200,
+                "messag" => "Staff Added to department",
+                "staff" => $staff
+            ]);
+        } catch (\Illuminate\Database\QueryException $err) {
+            return \response()->json([
+                "message"=> "Server Error: An Error occurred because a staff can no have the same department twice"
+            ]);
+        }
+
+
+    }
+
     public function makeHeadOfDepartment(Request $request)
     {
         $validator = Validator::make($request->all(), [
