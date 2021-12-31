@@ -10,7 +10,7 @@ class Performance extends Model
     use HasFactory;
     protected $guarded = [];
 
-    public function staffs()
+    public function staff()
     {
         return $this->belongsTo(Staff::class);
     }

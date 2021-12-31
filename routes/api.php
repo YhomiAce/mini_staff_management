@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\StaffController;
+use App\Http\Controllers\PerformanceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
+// Authentication
 Route::group([
     'prefix' => 'auth'
 
@@ -33,6 +34,7 @@ Route::group([
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth.jwt');
 Route::get('/user', [AuthController::class, 'userProfile'])->middleware('auth.jwt');
 
+// Department crud
 Route::prefix('department')->group(function ($router) {
     Route::get("/", [DepartmentController::class, 'allDepartments']);
     Route::get("/{department}", [DepartmentController::class, 'getDepartment']);
@@ -41,10 +43,18 @@ Route::prefix('department')->group(function ($router) {
     Route::post("/add", [DepartmentController::class, 'createDepartment']);
 });
 
+// Staff Crud
 Route::resource("staff", StaffController::class);
 
+// Add staff to department
 Route::post("/add/staff/department", [DepartmentController::class, 'addStaffToDepartment']);
 Route::patch("/remove/staff/department", [DepartmentController::class, 'removeStaffFromDepartment']);
 
+// Make Hod
 Route::patch("/make-hod", [DepartmentController::class, 'makeHeadOfDepartment']);
 Route::patch("/unmake-hod", [DepartmentController::class, 'unMakeHeadOfDepartment']);
+
+// Performace
+Route::get('/current/month/performance/{month}/{year}', [PerformanceController::class, 'getPerformanceForMonth']);
+Route::get('/current/month/performance/{year}', [PerformanceController::class, 'getPerformanceForYear']);
+Route::post("/add/performance", [PerformanceController::class, 'addPerformance']);

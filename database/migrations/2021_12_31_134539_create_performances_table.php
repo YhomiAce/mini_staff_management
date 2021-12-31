@@ -17,8 +17,9 @@ class CreatePerformancesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('staff_id');
             $table->float('score');
-            $table->integer('rank');
-            $table->date('period');
+            $table->integer('rank')->nullable();
+            $table->integer('month');
+            $table->integer('year');
             $table->timestamps();
         });
     }
