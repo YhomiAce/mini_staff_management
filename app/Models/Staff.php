@@ -5,18 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Department extends Model
+class Staff extends Model
 {
     use HasFactory;
     protected $fillable = [
         'name',
-        'slug'
+        'email',
+        'isHod',
+        'department_id',
+
     ];
 
     protected $hidden = ['created_at', 'updated_at'];
 
-    public function staff()
+    public function department()
     {
-        return $this->belongsToMany(Staff::class);
+        return $this->belongsToMany(Department::class);
     }
 }
