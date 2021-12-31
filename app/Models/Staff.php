@@ -34,4 +34,9 @@ class Staff extends Model
     {
         return $this->belongsToMany(Department::class)->withTimestamps();
     }
+
+    public function performance()
+    {
+        return $this->hasMany(Performance::class);
+    }
 }
