@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\StaffController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,3 +40,10 @@ Route::prefix('department')->group(function ($router) {
     Route::delete("/{department}", [DepartmentController::class, 'deleteDepartment']);
     Route::post("/add", [DepartmentController::class, 'createDepartment']);
 });
+
+Route::resource("staff", StaffController::class);
+
+Route::post("/add/staff/department", [DepartmentController::class, 'addStaffToDepartment']);
+
+Route::patch("/make-hod", [DepartmentController::class, 'makeHeadOfDepartment']);
+Route::patch("/unmake-hod", [DepartmentController::class, 'unMakeHeadOfDepartment']);

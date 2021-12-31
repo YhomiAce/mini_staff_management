@@ -18,8 +18,20 @@ class Staff extends Model
 
     protected $hidden = ['created_at', 'updated_at'];
 
+    public function makeHod()
+    {
+        $this->isHod = true;
+        $this->save();
+    }
+
+    public function unMakeHod()
+    {
+        $this->isHod = false;
+        $this->save();
+    }
+
     public function department()
     {
-        return $this->belongsToMany(Department::class);
+        return $this->belongsToMany(Department::class)->withTimestamps();
     }
 }

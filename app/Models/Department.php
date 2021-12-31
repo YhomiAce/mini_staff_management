@@ -17,6 +17,6 @@ class Department extends Model
 
     public function staff()
     {
-        return $this->belongsToMany(Staff::class);
+        return $this->belongsToMany(Staff::class)->withTimestamps();
     }
 }

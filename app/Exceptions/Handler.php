@@ -55,6 +55,10 @@ class Handler extends ExceptionHandler
             }
         });
 
+        $this->renderable(function (\Illuminate\Database\QueryException $e, $request) {
+            return Response::json(['error'=>'Server Error'],500);
+        });
+
         $this->renderable(function(TokenInvalidException $e, $request){
             return Response::json(['error'=>'Invalid token'],401);
         });
